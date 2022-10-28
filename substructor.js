@@ -9,10 +9,15 @@ app.get('/',function(req,res){
 });
 const io=new Server(server,{});
 io.on("connection",socket=>{
+     while(true){
      from(axios.get("https://www.network.com.tr/lacivert-pantolon-p-136723?_sgm_campaign=scn_ae5d6e0c98000&_sgm_source=1082275001&_sgm_action=click")).subscribe(e=>socket.send(e.data.indexOf("NETWORK")));
      socket.on("message",(msg)=>{
-
+                  if(msg==-1){
+                       break;
+                  }
            });
+          
+     }
 });
 
 
