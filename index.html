@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <title>Socket.IO Fiddle</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=bJ-W4wq3osTJDD_d2EpPt-Sv25j1j9O5ftT8HtORu2lJrxPqsENC4LstwtFcAcpTFPvVYPp9zVD7CjtnfMIFp_AWO_hD-AtexVR84dehBus" charset="UTF-8"></script>
+
+    <style>
+        body{
+            text-align: center;
+        }
+        div{
+            position: absolute;
+            left:584px;
+            top: 200px;
+            width:90px;
+            height:80px;
+            background-color: pink;
+        }
+        button{
+            position: absolute;
+            left:684px;
+            top: 250px;
+            width:75px;
+            height:50px;
+            background-color: dimgray;
+        }
+    </style>
+</head>
+
+<body >
+<h2>Status: <span id="status">Disconnected</span></h2>
+<h2>Messages:</h2>
+
+
+<ul id="messages"></ul>
+<label>USERNAME E ERİŞMEK İÇİN KULLLANICININ ID SİNİ GİRİNİZ</label></br>
+<input id="input"/>
+<input id="inpu" />
+<button id="butto" onclick="but()"> ÇAĞIR</button></br>
+
+<div  id="div"></div>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+
+
+    const status = document.getElementById('status');
+    const messages = document.getElementById('messages');
+    const input=document.getElementById('input');
+    const inpu=document.getElementById('inpu');
+    const inp=document.getElementById('inp');
+
+    const div=document.getElementById('div');
+
+    const ik=document.getElementById('ik');
+
+    // const dd=dgram.createSocket("udp4");
+    const appendMessage = content => {
+        const item = document.createElement('li');
+        item.textContent = content;
+        messages.appendChild(item);
+    };
+
+
+
+    //create observable that emits click events
+
+
+    const socket = io({
+        // Socket.IO options
+    });
+    socket.on('hell',(msg)=>{
+        //  socket.emit("have","www");
+        div.innerHTML=msg;
+    });
+
+
+
+
+    socket.on('connect', () => {
+
+        status.innerText = 'Connected';
+
+    });
+    // const source = fromEvent(document, 'click');
+    //map to string with given event timestamp
+
+    const but=()=>{
+        socket.emit("have",input.value);
+        // socket.send(input.value);
+
+    }
+
+
+
+    socket.on('connect_error', err => {
+        appendMessage(`event: connect_error | reason: ${err.message}`);
+    });
+
+    socket.on('disconnect', reason => {
+        status.innerText = 'Disconnected';
+        appendMessage(`event: disconnect | reason: ${reason}`);
+    });
+let obj="fiyat";
+      socket.onAny((event, ...args) => {
+    //if(args=="button"){
+       // console.log(input.value);
+       // div.style.width=args;
+        appendMessage(args);
+
+        //appendMessage(but);
+        //socket.send(but);
+
+      });
+
+
+
+</script>
+
+</body>
+
+</html>
